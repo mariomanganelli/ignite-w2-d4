@@ -29,42 +29,38 @@
     </div>
 
     <script>
-        /*
-        
-        You are about to create your own Task List.
-        The user might be able to:
-        - Create new tasks by writing them in a text box and pressing a button to add them
-        - Mark a task as completed by clicking on it. The element should look different when completed
-        - Restore a completed task by clicking on it. 
-        - Have a checkbox to show only "non-completed" tasks
-        - Add a button to clear the list
-        
-        Hints:
-        - Create the list elements using the createElement function
-        - Add the event to them and pass the event to the function that should handle it
-        - Rememeber that from the event you can access to the element that generated it using the .target property
 
-        */
+        // This function just clear the text on the input text area when it is on focus
         function clearText(){
             document.querySelector("#tasksList input.task").value = "";
         }
+
+        // function that makes list items and add handle toggling when done 
         function addTask(){
+            // Get the value from input text value 
             let task = document.querySelector("#tasksList input.task").value;
+            // Create a new li with class todo-item and write in it the taken value
             let newItem = document.createElement("li"); 
             newItem.classList.add("todo-item");
             newItem.innerText = task;
+
+            // Add Ev Listener to the just creates list-item element which add class "done" at click
             newItem.addEventListener("click", (event) => {
                let completed = event.target;
                completed.classList.toggle("done");
-               console.log (completed); 
             });
+
+            // append new list-items to tasksList ul
             let parent = document.querySelector("#tasksList ul");
             parent.appendChild(newItem);
         }
 
+
+        // function to select visibility of completed tasks
         function showUncompOnly(checkboxID){
+            //make an array of all the list-items
             let allTasks = document.querySelectorAll("li.todo-item");
-            // let uncompletedTasks = allTasks
+            //loops all list-items and add or remove class .hide - Implemented in this way to prevent toggle issues 
             for (let i = 0; i < allTasks.length; i++){
                 if (checkboxID.checked){
                     if (allTasks[i].classList.contains("done")) 
@@ -77,8 +73,8 @@
             }
         }
 
+        // Clear All Items in the list
         function clearList(){
-            // console.log(document.querySelector("#tasksList ul").innerHTML);
             document.querySelector("#tasksList ul").innerHTML="";
         }
 
