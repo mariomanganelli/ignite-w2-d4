@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strive Ignite - Week 2 // Day 6</title>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }        
+        .done{
+            text-decoration: line-through;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Inspect the page to find the excercises ;-)</h2>
+
+    <div id="tasksList">
+        <h4>My Tasks</h4>
+        <input class="task" type="text" placeholder="Write a new task here" onfocus="clearText()" value=""/>
+        <input type="button" value="Add Task" onclick="addTask()"/>
+        <input type="checkbox" id="uncompleted" onchange="showUncompOnly(this)"/><label for="uncompleted">Show only non-completed</label>
+        <input type="button" value="Clear All" onclick="clearList()"/>
+        <ul></ul>
+    </div>
+
+    <script>
+        /*
+        
+        You are about to create your own Task List.
+        The user might be able to:
+        - Create new tasks by writing them in a text box and pressing a button to add them
+        - Mark a task as completed by clicking on it. The element should look different when completed
+        - Restore a completed task by clicking on it. 
+        - Have a checkbox to show only "non-completed" tasks
+        - Add a button to clear the list
+        
+        Hints:
+        - Create the list elements using the createElement function
+        - Add the event to them and pass the event to the function that should handle it
+        - Rememeber that from the event you can access to the element that generated it using the .target property
+
+        */
+        function clearText(){
+            document.querySelector("#tasksList input.task").value = "";
+        }
+        function addTask(){
+            let task = document.querySelector("#tasksList input.task").value;
+            let newItem = document.createElement("li"); 
+            newItem.classList.add("todo-item");
+            newItem.innerText = task;
+            newItem.addEventListener("click", (event) => {
+               let completed = event.target;
+               completed.classList.toggle("done");
+               console.log (completed); 
+            });
+            let parent = document.querySelector("#tasksList ul");
+            parent.appendChild(newItem);
+        }
+
+        function showUncompOnly(checkboxID){
+            let allTasks = document.querySelectorAll("li.todo-item");
+            // let uncompletedTasks = allTasks
+            for (let i = 0; i < allTasks.length; i++){
+                if (checkboxID.checked){
+                    if (allTasks[i].classList.contains("done")) 
+                        allTasks[i].classList.add("hide");
+                    else
+                        allTasks[i].classList.remove("hide");
+                }
+                else 
+                    allTasks[i].classList.remove("hide");
+            }
+        }
+
+        function clearList(){
+            // console.log(document.querySelector("#tasksList ul").innerHTML);
+            document.querySelector("#tasksList ul").innerHTML="";
+        }
+
+    </script>
+</body>
+</html>
