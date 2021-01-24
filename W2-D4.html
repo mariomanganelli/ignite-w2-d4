@@ -148,7 +148,9 @@
 
         let myObject = {
             name: "John",
-            surname: "Doe"
+            surname: "Doe",
+            job: "teacher",
+            pets: "tiger"
         }
 
         function arrayFi(object){
@@ -200,6 +202,19 @@
             
             return obj;
 
+        }
+
+        // 13 Different WAY 
+
+        function objectify(arr){
+            let newObj = {};
+
+            for (let i = 0; i < arr.length/2; i++){
+                let n = i *2 ;                
+                newObj[arr[n]] = arr[n+1];
+            }
+
+            return newObj;
         }
 
 
